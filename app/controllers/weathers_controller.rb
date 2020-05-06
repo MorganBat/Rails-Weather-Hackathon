@@ -1,10 +1,31 @@
+require 'httparty'
+require 'json'
+
 class WeathersController < ApplicationController
   before_action :set_weather, only: [:show, :edit, :update, :destroy]
+  include HTTParty, JSON 
+
 
   # GET /weathers
   # GET /weathers.json
   def index
-    @weathers = Weather.all
+        @weathers = Weather.all
+
+    response = (HTTParty.get('http://reg.bom.gov.au/fwo/IDN60901/IDN60901.94768.json')).to_s
+
+    data = JSON.parse(response)
+
+    current = data["observations"]["data"][0]
+
+    puts current
+
+    @temp = current["air_temp"]
+
+    puts "help"
+
+    puts @temp
+
+    puts "help"
   end
 
   # GET /weathers/1
