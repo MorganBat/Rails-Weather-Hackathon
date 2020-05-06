@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get "/", to: "weather#index"
+  get "/", to: "weathers#index"
   resources :weathers
   
 
